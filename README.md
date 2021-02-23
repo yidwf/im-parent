@@ -25,16 +25,10 @@ im-parent
 
 ## 系统架构
 <div align="left">  
-<img src="https://github.com/yidwf/im-parent/blob/master/images/IM系统架构.png"/> 
+<img src="https://github.com/yidwf/im-parent/blob/main/images/IM系统架构.png"/> 
 </div>
 
 ## 登录流程图
 <div align="left">  
-<img src="https://github.com/yidwf/im-parent/blob/master/images/IM登录流程图.png"/> 
-</div>
-
-## 联系方式
-<p>微信联系或者635915376@qq.com</p>
-<div align="left">  
-<img src="https://github.com/yidwf/im-parent/blob/master/images/wx.png" height="200" width="200"/> 
+<img src="https://github.com/yidwf/im-parent/blob/main/images/IM登录流程图.png"/> 
 </div>
