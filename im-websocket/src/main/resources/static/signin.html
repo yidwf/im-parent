@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>index</title>
+<link href="/css/signin.css" rel="stylesheet" />
+<link href="/tools/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<script src="/tools/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body class="login-bg">
+<div class="bg-switch">
+    <div class="bgs">
+        <a href="javascript:void(0);" id="bg_1" data-img="1.jpg" class="bg active" onclick="setPicture(1)">
+            <img src="/images/signin/1.jpg" />
+        </a>
+        <a href="javascript:void(0);" id="bg_2" data-img="2.jpg" class="bg" onclick="setPicture(2)">
+            <img src="/images/signin/2.jpg" />
+        </a>            
+        <a href="javascript:void(0);" id="bg_3" data-img="3.jpg" class="bg" onclick="setPicture(3)">
+            <img src="/images/signin/3.jpg" />
+        </a>
+        <a href="javascript:void(0);" id="bg_4" data-img="4.jpg" class="bg" onclick="setPicture(4)">
+            <img src="/images/signin/4.jpg" />
+        </a>
+        <a href="javascript:void(0);" id="bg_5" data-img="5.jpg" class="bg" onclick="setPicture(5)">
+            <img src="/images/signin/5.jpg" />
+        </a>
+        <a href="javascript:void(0);" id="bg_6" data-img="6.jpg" class="bg" onclick="setPicture(6)">
+            <img src="/images/signin/6.jpg" />
+        </a>
+        <a href="javascript:void(0);" id="bg_7" data-img="7.jpg" class="bg" onclick="setPicture(7)">
+            <img src="/images/signin/7.jpg" />
+        </a>
+    </div>
+</div>
+<div class="login-wrapper">
+    <a href="javascript:void(0);">
+        <img class="logo" src="/images/signin/logo-white.png" />
+    </a>
+
+    <div class="box">
+        <div class="content-wrap">
+			<form action="/login" id="loginForm" autocomplete="off" method="post" onsubmit="return false;">
+	             <h6>登录</h6>
+	             <span class="login_error"> </span>
+	             <input class="form-control" type="text" placeholder="用户名/邮箱地址" id="userName" name="userName" />
+	             <input class="form-control" type="password" placeholder="密码" id="password"  name="password" value="123456" />
+	             <a href="#" class="forgot pull-right">忘记密码?</a>
+	             <div class="remember">
+	                	<input id="remember-me" type="checkbox" name="remember-me" data-toggle="tooltip" data-placement="bottom" title="浏览器不禁用cookie才有效！" />
+	                	<label for="remember-me">记住用户名</label>
+	             </div>
+	             <input type="button" class="btn-glow primary login" value="登录" onclick="checkLogin();" />
+            </form>
+        </div>
+    </div>
+    <div class="no-account">
+        <p>还没账号？</p>
+        <a href="signup.jsp">注册</a>
+    </div>
+</div>
+<script type="text/javascript">
+var current_index = 1;
+$(function () {
+    nextPicture();
+    
+    $("#userName").keydown(function(event){
+	    if(event.keyCode == 13){
+	        event.preventDefault();
+	        //触发登录按钮
+	        $(".login").trigger("click");
+	    }
+	});
+	$("#password").keydown(function(event){
+	    if(event.keyCode == 13){
+	        event.preventDefault();	
+	        //触发登录按钮
+	        $(".login").trigger("click");
+	    }
+	});
+});
+function setPicture(index) {
+	current_index = index;
+	$(".bg-switch .bg").removeClass("active");
+	$("#bg_" + current_index).addClass("active");
+	 	var bg = $("#bg_" + current_index).data("img");
+	$("body").css("background-image", "url('/images/signin/" + bg + "')");
+	nextPicture();
+}
+var timeout_id = null;
+function nextPicture() {
+	if(timeout_id != null) {
+		window.clearTimeout(timeout_id);
+	}
+	timeout_id = setTimeout(function() {
+			current_index = current_index + 1;
+		if(current_index == 8) {
+			current_index = 1;
+		}
+		$("#bg_" + current_index).click();
+	},20000);
+}
+function checkLogin() {
+	$(".login_error").html("");
+	var userName = $("#userName").val();
+	var password = $("#password").val();
+	if(userName == "") {
+		$(".login_error").html("用户名不能为空！");
+		return;
+	}
+	if(password == "") {
+		$(".login_error").html("密码不能为空！");
+		return;
+	}
+	$.ajax({
+		'url': '/login',
+		'type':'post',
+		'data':{'account':userName, 'password':password},
+		'dataType':'json',
+		'success':function(data, statusText){
+			if(data.data.success == "true" || data.data.success == true) {
+				window.location.href = "/im.html";
+			} else {
+				$(".login_error").html("用户名或密码错误！");
+			}
+		},
+		'error':function(xmlHttp,e1,e2){
+			alert("系统异常，请稍后再试！");
+		}
+	});
+}
+</script>
+</body>
+</html>

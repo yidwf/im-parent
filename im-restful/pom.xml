@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.yesido</groupId>
+		<artifactId>im-parent</artifactId>
+		<version>v1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>im-restful</artifactId>
+	
+	<properties>
+		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+	</properties>
+	
+	<dependencies>
+		<!-- 支持web的模块 -->
+		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	 	</dependency>
+	 	
+		<!-- common-rpc -->
+	 	<dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>app-common-rpc</artifactId>
+			<version>v1.0-SNAPSHOT</version>
+		</dependency>
+	 	
+	 	<!-- zk服务 -->
+	 	<dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>app-common-zookeeper</artifactId>
+			<version>v1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- 自定义协议 -->
+		<dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>im-proto</artifactId>
+			<version>v1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- mongodb -->
+		<dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>app-common-mongodb</artifactId>
+			<version>v1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- lib依赖 -->
+		<dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>app-common-lib</artifactId>
+			<version>v1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- auth依赖 -->
+		<dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>app-common-auth</artifactId>
+			<version>v1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- redis -->
+		<dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>app-common-redis</artifactId>
+			<version>v1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- rabbitmq -->
+		<dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>app-common-rabbitmq</artifactId>
+			<version>v1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- rpc服务 -->
+		<dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>app-rpc-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- <dependency>
+			<groupId>com.yesido</groupId>
+			<artifactId>app-common-kafka</artifactId>
+			<version>v1.0-SNAPSHOT</version>
+		</dependency> -->
+	</dependencies>
+	
+	<build>
+		<finalName>im-restful</finalName>
+		<plugins>
+			<!-- 用于生成jar文件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+		</plugins>
+		<resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+        </resources>
+	</build>
+</project>

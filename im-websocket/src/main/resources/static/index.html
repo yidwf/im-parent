@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>index</title>
+<link href="/tools/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<script src="/tools/jquery/1.10.2/jquery.min.js"></script>
+<script src="/tools/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+    
+<style type="text/css">
+.text-content {
+	margin-top: 15px;
+	border: 1px solid gray;
+	height: 200px;
+	overflow: auto;
+}
+</style>
+<script type="text/javascript">
+var account  = Math.random().toString(36).substr(2);
+var websocket;
+$(function() {
+	if ("WebSocket" in window) {
+		websocket = new WebSocket("ws://localhost:8081/websocket?account=" + account + "&amp;password=123456");
+		//websocket = new WebSocket("ws://192.168.8.142:8080/websocket?account=" + account + "&amp;password=123456");
+	} else if ('MozWebSocket' in window) {
+		websocket = new MozWebSocket(url);
+	} else {
+		websocket = new SockJS(url);
+	}
+	websocket.onopen = function(evnt) {
+		//成功连接后调用
+		appendText("websocket连接成功！");
+		// reloadTime();
+		var cmd = {
+			cmd:101,
+			uid:"wxid_hrnfi7knwz1212"
+		};
+		websocket.send(JSON.stringify(cmd));
+	};
+	websocket.onmessage = function(event) {
+		appendText(event.data);
+	};
+	websocket.onerror = function(evnt) { 
+		appendText("websocket连接异常！");
+	};
+	websocket.onclose = function(evnt) { 
+		appendText("websocket连接关闭！");
+	};
+});
+var appendText = function(text) {
+	$("#text-content").prepend("<p>" + text + "</p>");
+};
+var type = 1;
+var reloadTime = function() {
+	setTimeout(function() {
+		var requetId= Math.random().toString(36).substr(2);
+		var msg = clone(message);
+		msg.putHeader("type", type++).putBody("requetId", requetId).putBody("from", account);
+		console.log(msg.val());
+		websocket.send(msg.val());
+		 
+		reloadTime();
+	}, 1000);
+}
+var message = {
+	header: {},
+	body:{},
+	put: function(key, value) {
+		this[key] = value;
+	},
+	putHeader: function(key, value) {
+		this.header[key] = value;
+		return this;
+	},
+	putBody: function(key, value) {
+		this.body[key] = value;
+		return this;
+	},
+	val: function() {
+		return JSON.stringify(this);
+	}
+};
+function clone(obj) {
+	var newObject = $.extend(true, {}, obj)
+	return newObject;
+};
+</script>
+</head>
+<body>
+<div style="width: 1000px;margin: 5% auto 0;">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">test websocket</h3>
+		</div>
+		<div class="panel-body">
+			<div class="btn-group" role="group" aria-label="...">
+			  	<button type="button" class="btn btn-default">click</button>
+			</div>
+			
+			<div class="text-content" id="text-content">
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

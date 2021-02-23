@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>im</title>
+<link href="/css/chat/im.css" rel="stylesheet" />
+<link href="/tools/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<script src="/tools/jquery/1.10.2/jquery.min.js"></script>
+<script src="/tools/jquery/1.4.1/jquery.cookie.min.js"></script>
+<script src="/tools/nicescroll/jquery.nicescroll.js"></script>
+<script src="/tools/layer-v3.0.3/layer_demo.js"></script>
+
+<script src="/js/jqAjax.js"></script>
+<script src="/js/chat/reconnecting-websocket.min.js"></script>
+<script src="/js/chat/im.js"></script>
+
+</head>
+<body>
+<div style="display: none;">
+</div>
+<div id="chat" ng-app="myApp" ng-controller="chatCtrl">
+	<div class="sidebar">
+		<div class="m-card">
+			<header>
+				<img class="avatar" id="avatar" width="40" height="40" alt="yesido" src="/images/chat/1.jpg"/>
+				<p class="name" id="name">yesido</p>
+			</header>
+			<footer>
+				<input class="search" placeholder="search user..." ng-model="userName"/>
+			</footer>
+		</div>
+			
+		<!--v-component-->
+		<div class="m-list">
+			<ul><!--v-for-start-->
+				<li>
+					<img class="avatar" width="30" height="30" alt="yesido" src="/images/chat/1.jpg"/>
+					<p class="name">admin</p>
+				</li>
+				
+				<li>
+					<img class="avatar" width="30" height="30" alt="yesido" src="/images/chat/2.png"/>
+					<p class="name">manager</p>
+				</li>
+			</ul>
+		</div><!--v-component-->
+	</div>
+	<div class="main">
+		<div class="m-message">
+			<ul class="nicescroll" id="chat_content"><!--v-for-start-->
+				<li>
+					<p class="time"><span>20:51</span></p>
+					<div class="main">
+						<img class="avatar" width="30" height="30" src="/images/chat/3.jpg"/>
+						<div class="text">
+							Hello，这是一个基于Vue + Webpack构建的简单chat示例，聊天记录保存在localStorge。简单演示了Vue的基础特性和webpack配置。
+						</div>
+					</div>
+				</li>
+				<li>
+					<p class="time"><span>20:51</span></p>
+					<div class="main">
+						<img class="avatar" width="30" height="30" src="/images/chat/3.jpg"/>
+						<div class="text">
+							Hello，这是一个基于Vue + Webpack构建的简单chat示例，聊天记录保存在localStorge。简单演示了Vue的基础特性和webpack配置。
+						</div>
+					</div>
+				</li>
+				<li>
+					<p class="time"><span>20:51</span></p>
+					<div class="main">
+						<img class="avatar" width="30" height="30" src="/images/chat/2.png"/>
+						<div class="text">
+							项目地址: https://github.com/coffcer/vue-chat
+						</div>
+					</div>
+				</li>
+				<li>
+					<p class="time"><span>20:38</span></p>
+					<div class="main self">
+						<img class="avatar" width="30" height="30" src="/images/chat/1.jpg"/>
+						<div class="text">safasd</div>
+					</div>
+				</li>
+			</ul><!-- v-for-end -->
+		</div><!--v-component-->
+		<div class="m-text">
+			<textarea id="msg_text"></textarea>
+			<div style="float: right;padding-right: 15px;">
+				<button class="btn btn-sm btn-success" id="send_btn">发送</button>
+			</div>
+		</div><!--v-component-->
+	</div>
+</div>
+</body>
+</html>
